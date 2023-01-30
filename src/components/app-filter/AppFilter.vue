@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <h1>app filter</h1>
+    <div class="btn-group mt-3">
+        <button class="btn btn-dark" type="button">Barcha kinolar</button>
+        <button class="btn btn-outkine-dark" type="button">Mashhur  kinolar</button>
+        <button class="btn btn-outkine-dark" type="button">Eng ko'p ko'rilgan kinolar</button>
     </div>
 </template>
 
@@ -24,6 +26,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+.btn-group{
+    border: 1px solid black;
+}
 </style>
