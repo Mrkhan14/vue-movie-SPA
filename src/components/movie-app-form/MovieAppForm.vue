@@ -1,11 +1,23 @@
 <template>
     <div class="movie-app-form">
        <h3>Yangi kino qo'shish</h3>
-       <form class="add-form d-flex">
-        <input type="text" class="form-control new-movie-label" placeholder="Qanday kino?">
-        <input type="text" class="form-control new-movie-label" placeholder="Nechi Marotaba ko'rilgan">
-        <button class="btn btn-outline-dark" type="submit "> Qo'shmoq</button>
-    </form>
+       <form class="add-form d-flex" @submit.prevent>
+            <input 
+                type="text" 
+                class="form-control new-movie-label" 
+                placeholder="Qanday kino?"
+                :value="name"
+                @input="name = $event.target.value"
+            >
+            <input 
+                type="text" 
+                class="form-control new-movie-label" 
+                placeholder="Nechi Marotaba ko'rilgan"
+                :value="viewers"
+                @input="viewers = $event.target.value"
+                >
+            <button class="btn btn-outline-dark" type="submit" @click="addMavie"> Qo'shmoq</button>
+        </form>
     </div>
 </template>
 
@@ -15,16 +27,28 @@ export default {
 
     data() {
         return {
-            
+            name: '',
+            viewers:'',
         };
     },
 
-    mounted() {
+    // mounted() {
         
-    },
+    // },
 
     methods: {
-        
+        addMavie(){
+            const newMavie ={
+                name: this.name,
+                viewers: this.viewers,
+                favourite2: false,
+                link: false,
+                id: Date.now(),
+            }
+            this.$emit('creatMovie', newMavie)
+            this.name= "",
+            this.viewers= ""
+        },
     },
 };
 </script>

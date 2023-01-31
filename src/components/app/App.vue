@@ -9,8 +9,8 @@
               <SearchPanel />
               <AppFilter />
           </div>
-          <movie-list :muviesYubor="muvies"  />
-          <movie-app-form />
+          <movie-list :muviesYubor="muvies" />
+          <movie-app-form  @creatMovie="creatMovieQabul"/>
         </div>
     </div>
 </template>
@@ -31,27 +31,38 @@ export default {
     data() {
         return {
           muvies:[
-                {
+                {  
+                   id :1,
                     name: 'Omar',
                     viewers: 811,
                     favourite2: false,
                     link: true,
                 },
-                {
+                {   
+                    id :2,
                     name: 'Shaytanat',
                     viewers: 411,
                     favourite2: false,
                     link: false,
                 },
-                {
+                {   
+                    id :3,
                     name: 'Osmodagi bolalar',
                     viewers: 711,
                     favourite2: true,
                     link: false,
                 }
-             ]
+            ]
         };
     },
+    methods:{
+      creatMovieQabul(itme){
+        // itme massivga push qilib qoyish 
+        this.muvies.push(itme)
+        console.log(itme);
+      }
+    }
+
 }
 </script>
 
