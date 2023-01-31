@@ -1,8 +1,10 @@
 <template>
-    <li class="list-group-itme  d-flex justify-content-between">
-        <span class="list-group-itme-label">Omar</span>
+    <li class="list-group-itme  d-flex justify-content-between" 
+    :class="[{like: movieProps.link}, {favourite: movieProps.favourite2}]"
+    >
+        <span class="list-group-itme-label"> {{ movieProps.name  }} </span>
 
-        <input type="number" class="list-group-itme-input" defaultValue="811">
+        <input type="number" class="list-group-itme-input" :value="movieProps.viewers">
 
         <div class="d-flex justify-content-center align-itmes-center">
             <button type="button" class="btn-cookie btn-sm">
@@ -21,20 +23,25 @@
 <script>
 export default {
     name: 'Vue3SaMovieListItme',
-
-    data() {
-        return {
+    props:{
+        movieProps:{
+            type: Object,
+            required: true,
+        }
+    },
+    // data() {
+    //     return {
             
-        };
-    },
+    //     };
+    // },
 
-    mounted() {
+    // mounted() {
         
-    },
+    // },
 
-    methods: {
+    // methods: {
         
-    },
+    // },
 };
 </script>
 
@@ -86,7 +93,7 @@ width: 550px;
     transform:  translate(30px);
     opacity: 0;
 }
-.list-group-itme.link .fa-star{
+.list-group-itme.like .fa-star{
     opacity: 1;
     transform: translateX(0);
 }

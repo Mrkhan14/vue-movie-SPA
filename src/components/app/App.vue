@@ -1,12 +1,15 @@
 <template>
     <div class="app font-monspace">
         <div class="content">
-          <AppInfo />
+          <AppInfo 
+            :allMuviesCount="muvies.length"
+            :FavouriteMuviesCount="muvies.filter(muvie => muvie.favourite2).length"
+          />
           <div class="search-panel">
               <SearchPanel />
               <AppFilter />
           </div>
-          <movie-list />
+          <movie-list :muviesYubor="muvies"  />
           <movie-app-form />
         </div>
     </div>
@@ -24,7 +27,31 @@ export default {
       AppFilter,
       MovieList,
       MovieAppForm,
-    }
+    },
+    data() {
+        return {
+          muvies:[
+                {
+                    name: 'Omar',
+                    viewers: 811,
+                    favourite2: false,
+                    link: true,
+                },
+                {
+                    name: 'Shaytanat',
+                    viewers: 411,
+                    favourite2: false,
+                    link: false,
+                },
+                {
+                    name: 'Osmodagi bolalar',
+                    viewers: 711,
+                    favourite2: true,
+                    link: false,
+                }
+             ]
+        };
+    },
 }
 </script>
 

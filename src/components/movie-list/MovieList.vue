@@ -1,8 +1,6 @@
 <template>
     <ul class="movie-list list-grop">
-       <movie-list-itme />
-       <movie-list-itme />
-       <movie-list-itme />
+       <movie-list-itme  v-for="(movie, index) in muviesYubor" :key="index"  :movieProps="movie"/>
     </ul>
 </template>
 
@@ -11,21 +9,13 @@ import MovieListItme from '../movie-list-itme/MovieListItme.vue';
 export default {
   components: { MovieListItme },
     name: 'Vue3SaMovieList',
-
-    data() {
-        return {
-            
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
-};
+    props: {
+      muviesYubor: {
+        type: Array,
+        required: true
+      }
+    }
+  };
 </script>
 
 <style  scoped>
