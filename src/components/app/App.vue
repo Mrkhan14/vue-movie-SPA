@@ -3,13 +3,16 @@
         <div class="content">
           <AppInfo 
             :allMuviesCount="muvies.length"
-            :FavouriteMuviesCount="muvies.filter(muvie => muvie.favourite2).length"
+            :FavouriteMuviesCount="muvies.filter(muvie => muvie.favourite).length"
           />
           <div class="search-panel">
               <SearchPanel />
               <AppFilter />
           </div>
-          <movie-list :muviesYubor="muvies" />
+          <movie-list 
+            :muviesYubor="muvies" 
+            @onToggle="onToggleHandler"
+          />
           <movie-app-form  @creatMovie="creatMovieQabul"/>
         </div>
     </div>
@@ -32,25 +35,25 @@ export default {
         return {
           muvies:[
                 {  
-                   id :1,
+                    id :1,
                     name: 'Omar',
                     viewers: 811,
-                    favourite2: false,
-                    link: true,
+                    favourite: false,
+                    like: true,
                 },
                 {   
                     id :2,
                     name: 'Shaytanat',
                     viewers: 411,
-                    favourite2: false,
-                    link: false,
+                    favourite: false,
+                    like: false,
                 },
                 {   
                     id :3,
                     name: 'Osmodagi bolalar',
                     viewers: 711,
-                    favourite2: true,
-                    link: false,
+                    favourite: true,
+                    like: false,
                 }
             ]
         };
@@ -60,7 +63,17 @@ export default {
         // itme massivga push qilib qoyish 
         this.muvies.push(itme)
         console.log(itme);
-      }
+      },
+      onToggleHandler({id, prop}){
+        // console.log(prop);
+       this.muvies = this.muvies.map(item => {
+          if (item.id == id) {
+              return{...item, [prop]: !item[prop]}
+          }
+          return item
+        })
+      },
+      
     }
 
 }

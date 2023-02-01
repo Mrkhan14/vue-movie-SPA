@@ -1,6 +1,17 @@
 <template>
     <ul class="movie-list list-grop">
-       <movie-list-itme  v-for="(movie, index) in muviesYubor" :key="index"  :movieProps="movie"/>
+        <!-- <movie-list-itme  
+          v-for="movie in muviesYubor" 
+          :key="movie.id"  
+          :movieProps="movie"
+          @onLike="onLike2(movie)"
+          /> -->
+       <movie-list-itme  
+          v-for="movie in muviesYubor" 
+          :key="movie.id"  
+          :movieProps="movie"
+          @onToggle="$emit('onToggle', $event)"
+          />
     </ul>
 </template>
 
@@ -14,7 +25,14 @@ export default {
         type: Array,
         required: true
       }
-    }
+    },
+    // methods: {
+    //   onLike2(movie){
+    //       this.$emit('onLike3', movie)
+    //       // console.log(this.movieProps.id);
+    //     }
+    // },
+
   };
 </script>
 

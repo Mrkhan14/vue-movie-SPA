@@ -1,13 +1,22 @@
 <template>
     <li class="list-group-itme  d-flex justify-content-between" 
-    :class="[{like: movieProps.link}, {favourite: movieProps.favourite2}]"
+    :class="[{like: movieProps.like}, {favourite: movieProps.favourite}]"
     >
-        <span class="list-group-itme-label"> {{ movieProps.name  }} </span>
+        <span 
+            @click="$emit('onToggle', {id: movieProps.id, prop: 'like'} )" 
+            class="list-group-itme-label"
+        > 
+            {{ movieProps.name  }} 
+        </span>
 
         <input type="number" class="list-group-itme-input" :value="movieProps.viewers">
 
         <div class="d-flex justify-content-center align-itmes-center">
-            <button type="button" class="btn-cookie btn-sm">
+            <button 
+                @click="$emit('onToggle', {id: movieProps.id, prop: 'favourite'} )" 
+                type="button" 
+                class="btn-cookie btn-sm"
+            >
                 <i class="fas fa-cookie"></i>
             </button>
 
@@ -39,9 +48,15 @@ export default {
         
     // },
 
-    // methods: {
-        
-    // },
+    methods: {
+        onLike(){
+            this.$emit('onLike', this.movieProps.id)
+            // console.log(this.movieProps.id);
+        },
+        onFavourite(){
+            this.$emit('onFavourite', this.movieProps.id)
+        }
+    },
 };
 </script>
 
