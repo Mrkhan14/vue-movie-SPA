@@ -1,28 +1,13 @@
 <template>
     <div class="btn-group mt-3">
         <button 
-            class="btn"   
-            type="button"
-            @click="filtereHandler('all')"
-            :class="[filterName == 'all' ? 'btn-dark' : 'btn-outkine-dark']"
+            class="btn"
+            v-for="btn in filterButton" 
+            :key="btn.name"
+            :class="[filterName == btn.name ? 'btn-dark' : 'btn-outkine-dark']"
+            @click="filtereHandler(btn.name)"
             >
-            Barcha kinolar
-        </button>
-        <button 
-            class="btn btn-outkine-dark" 
-            type="button"
-            @click="filtereHandler('popular')"
-            :class="[filterName == 'popular' ? 'btn-dark' : 'btn-outkine-dark']"
-            >
-            Mashhur  kinolar
-        </button>
-        <button 
-            class="btn btn-outkine-dark"
-            type="button"
-            @click="filtereHandler('mostViewers')"
-             :class="[filterName == 'mostViewers' ? 'btn-dark' : 'btn-outkine-dark']"
-            >
-            Eng ko'p ko'rilgan kinolar
+            {{ btn.title }}
         </button>
     </div>
 </template>
@@ -42,6 +27,20 @@ export default {
     },
     data() {
         return {
+            filterButton: [
+                {
+                    title: 'Barcha kinolar',
+                    name: 'all',
+                },
+                {
+                    title: 'Mashhur  kinolar',
+                    name: 'popular',
+                },
+                {
+                    title: "Eng ko'p ko'rilgan kinolar",
+                    name: 'mostViewers',
+                },
+            ],
             filter: 'all',
         };
     },
