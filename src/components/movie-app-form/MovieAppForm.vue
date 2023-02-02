@@ -38,6 +38,7 @@ export default {
 
     methods: {
         addMavie(){
+            if(!this.name || !this.viewers) return
             const newMavie ={
                 name: this.name,
                 viewers: this.viewers,

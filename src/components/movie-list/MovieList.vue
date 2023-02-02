@@ -11,6 +11,7 @@
           :key="movie.id"  
           :movieProps="movie"
           @onToggle="$emit('onToggle', $event)"
+          @onRemove="$emit('onRemove', movie.id)"
           />
     </ul>
 </template>

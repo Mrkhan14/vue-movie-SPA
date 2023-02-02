@@ -12,6 +12,7 @@
           <movie-list 
             :muviesYubor="muvies" 
             @onToggle="onToggleHandler"
+            @onRemove="onRemoveHandler"
           />
           <movie-app-form  @creatMovie="creatMovieQabul"/>
         </div>
@@ -73,6 +74,9 @@ export default {
           return item
         })
       },
+      onRemoveHandler(id){
+        this.muvies = this.muvies.filter(c => c.id !== id)
+      }
       
     }
 
