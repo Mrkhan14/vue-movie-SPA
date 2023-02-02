@@ -6,11 +6,11 @@
             :FavouriteMuviesCount="muvies.filter(muvie => muvie.favourite).length"
           />
           <div class="search-panel">
-              <SearchPanel />
-              <AppFilter />
+              <SearchPanel :updateTermHandler="updateTermHandler"/>
+              <AppFilter   :updateFiltereHandler="updateFiltereHandler" :filterName="filter"/>
           </div>
           <movie-list 
-            :muviesYubor="muvies" 
+            :muviesYubor="onFiltereHandler(onSoecheHandler(muvies, term), filter)" 
             @onToggle="onToggleHandler"
             @onRemove="onRemoveHandler"
           />
@@ -56,7 +56,9 @@ export default {
                     favourite: true,
                     like: false,
                 }
-            ]
+          ],
+          term:'',
+          filter: 'all'
         };
     },
     methods:{
@@ -76,6 +78,29 @@ export default {
       },
       onRemoveHandler(id){
         this.muvies = this.muvies.filter(c => c.id !== id)
+      },
+      onSoecheHandler(arr, term){
+        if (term.length == 0) {
+          return arr
+        }
+        return arr.filter(c => c.name.toLowerCase().indexOf(term) > -1)
+      },
+      onFiltereHandler(arr, filter){
+          switch (arr, filter) {
+            case 'popular':
+              return arr.filter(c => c.like)
+            case 'mostViewers':
+              return arr.filter(c => c.viewers > 500)
+            default:
+              return arr
+          }
+      },
+      updateTermHandler(term){
+        // debugger;
+        this.term = term
+      },
+      updateFiltereHandler(filter){
+        this.filter = filter 
       }
       
     }
