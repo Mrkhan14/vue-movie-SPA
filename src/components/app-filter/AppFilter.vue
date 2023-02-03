@@ -1,20 +1,20 @@
 <template>
     <div class="btn-group mt-3">
-        <button 
+        <PrimaryButton 
             class="btn"
             v-for="btn in filterButton" 
             :key="btn.name"
             :class="[filterName == btn.name ? 'btn-dark' : 'btn-outkine-dark']"
-            @click="filtereHandler(btn.name)"
-            >
+            @click="filtereHandler(btn.name)"    
+        >
             {{ btn.title }}
-        </button>
+        </PrimaryButton>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Vue3SaAppFilter',
+    name: "Vue3SaAppFilter",
     props: {
         updateFiltereHandler: {
             type: Function,
@@ -29,30 +29,27 @@ export default {
         return {
             filterButton: [
                 {
-                    title: 'Barcha kinolar',
-                    name: 'all',
+                    title: "Barcha kinolar",
+                    name: "all",
                 },
                 {
-                    title: 'Mashhur  kinolar',
-                    name: 'popular',
+                    title: "Mashhur  kinolar",
+                    name: "popular",
                 },
                 {
                     title: "Eng ko'p ko'rilgan kinolar",
-                    name: 'mostViewers',
+                    name: "mostViewers",
                 },
             ],
-            filter: 'all',
+            filter: "all",
         };
     },
-
     mounted() {
-        
     },
-
     methods: {
-        filtereHandler(filter){
-            this.filter = filter
-            this.updateFiltereHandler(this.filter)
+        filtereHandler(filter) {
+            this.filter = filter;
+            this.updateFiltereHandler(this.filter);
         }
     },
 };

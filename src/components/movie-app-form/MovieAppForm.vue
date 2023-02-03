@@ -1,5 +1,5 @@
 <template>
-    <div class="movie-app-form">
+    <card-my  class="movie-app-form">
        <h3>Yangi kino qo'shish</h3>
        <form class="add-form d-flex" @submit.prevent>
             <input 
@@ -16,50 +16,34 @@
                 :value="viewers"
                 @input="viewers = $event.target.value"
                 >
-            <button class="btn btn-outline-dark" type="submit" @click="addMavie"> Qo'shmoq</button>
+            <PrimaryButton  class="btn btn-outline-dark" type="submit" @click="addMavie"> Qo'shmoq </PrimaryButton>
         </form>
-    </div>
+    </card-my>
 </template>
 
 <script>
 export default {
-    name: 'Vue3SaMovieAppForm',
-
     data() {
         return {
-            name: '',
-            viewers:'',
+            name: "",
+            viewers: "",
         };
     },
-
-    // mounted() {
-        
-    // },
-
     methods: {
-        addMavie(){
-            if(!this.name || !this.viewers) return
-            const newMavie ={
+        addMavie() {
+            if (!this.name || !this.viewers)
+                return;
+            const newMavie = {
                 name: this.name,
                 viewers: this.viewers,
                 favourite2: false,
                 link: false,
                 id: Date.now(),
-            }
-            this.$emit('creatMovie', newMavie)
-            this.name= "",
-            this.viewers= ""
+            };
+            this.$emit("creatMovie", newMavie);
+            this.name = "",
+                this.viewers = "";
         },
-    },
+    }, 
 };
 </script>
-
-<style scoped>
-.movie-app-form{
-    margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: #fcfaf5;
-  border-radius: 4px;
-  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.15);
-}
-</style>

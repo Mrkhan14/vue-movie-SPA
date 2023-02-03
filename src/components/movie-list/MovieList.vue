@@ -1,5 +1,5 @@
 <template>
-    <ul class="movie-list list-grop">
+   <card-my class="movie-list list-grop">
         <!-- <movie-list-itme  
           v-for="movie in muviesYubor" 
           :key="movie.id"  
@@ -13,7 +13,7 @@
           @onToggle="$emit('onToggle', $event)"
           @onRemove="$emit('onRemove', movie.id)"
           />
-    </ul>
+   </card-my>
 </template>
 
 <script>
@@ -36,13 +36,3 @@ export default {
 
   };
 </script>
-
-<style  scoped>
-.movie-list{
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: #fcfaf5;
-  border-radius: 4px;
-  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.15);
-}
-</style>
