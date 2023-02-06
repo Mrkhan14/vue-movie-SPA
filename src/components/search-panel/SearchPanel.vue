@@ -1,15 +1,16 @@
 <template>
-    
-    <input type="text" 
-    class="form-control search-input" 
-    placeholder="Kinolarni qidirish" 
-    :value="term"
-    @input="changeHandler"
-    >
+    <input 
+        class="form-control search-input" 
+        placeholder="Kinolarni qidirish" 
+        v-model="term"
+        @input="changeHandler"
+    />
 </template>
 
 <script>
+import input from '../../ui-components/input.vue';
 export default {
+    components: { input },
     name: 'Vue3SaSearchPanel',
     props: {
         updateTermHandler: {

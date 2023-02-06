@@ -2,27 +2,26 @@
     <card-my  class="movie-app-form">
        <h3>Yangi kino qo'shish</h3>
        <form class="add-form d-flex" @submit.prevent>
-            <input 
-                type="text" 
-                class="form-control new-movie-label" 
+            <Input  class="new-movie-label"
                 placeholder="Qanday kino?"
-                :value="name"
-                @input="name = $event.target.value"
-            >
-            <input 
-                type="text" 
-                class="form-control new-movie-label" 
+                v-model="name"
+            />
+            <Input  
+                class="new-movie-label" 
                 placeholder="Nechi Marotaba ko'rilgan"
-                :value="viewers"
-                @input="viewers = $event.target.value"
-                >
+                type="nunber"
+                v-model="viewers"
+
+            />
             <PrimaryButton  class="btn btn-outline-dark" type="submit" @click="addMavie"> Qo'shmoq </PrimaryButton>
         </form>
     </card-my>
 </template>
 
 <script>
+import Input from '../../ui-components/input.vue';
 export default {
+  components: { Input },
     data() {
         return {
             name: "",
