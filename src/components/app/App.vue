@@ -1,5 +1,6 @@
 <template>
     <div class="app font-monspace">
+      
         <div class="content">
           <AppInfo 
             :allMuviesCount="muvies.length"
@@ -9,13 +10,22 @@
               <SearchPanel :updateTermHandler="updateTermHandler"/>
               <AppFilter   :updateFiltereHandler="updateFiltereHandler" :filterName="filter"/>
           </div>
+          
+          <card-my v-if="!muvies.length && !isLoading">
+              <p class="text-center fs-3 text-danger">Kinolar hozircha yo'q</p>
+          </card-my>
+          <card-my v-else-if="isLoading">
+            <loading ></loading>
+          </card-my>
           <movie-list 
+            v-else
             :muviesYubor="onFiltereHandler(onSoecheHandler(muvies, term), filter)" 
             @onToggle="onToggleHandler"
             @onRemove="onRemoveHandler"
           />
           <movie-app-form  @creatMovie="creatMovieQabul"/>
         </div>
+        <!-- <primary-button @click="fetchMuvies">click</primary-button> -->
     </div>
 </template>
 <script>
@@ -24,6 +34,10 @@ import SearchPanel from '@/components/search-panel/SearchPanel.vue';
 import AppFilter from '@/components/app-filter/AppFilter.vue';
 import MovieList from '@/components/movie-list/MovieList.vue';
 import MovieAppForm from '@/components/movie-app-form/MovieAppForm.vue';
+import PrimaryButton from '@/ui-components/PrimaryButton.vue';
+import Loading from '../../ui-components/Loading.vue';
+import axios from 'axios';
+
 export default {
     components: {
       AppInfo,
@@ -31,34 +45,15 @@ export default {
       AppFilter,
       MovieList,
       MovieAppForm,
+      PrimaryButton,
+      Loading,
     },
     data() {
         return {
-          muvies:[
-                {  
-                    id :1,
-                    name: 'Omar',
-                    viewers: 811,
-                    favourite: false,
-                    like: true,
-                },
-                {   
-                    id :2,
-                    name: 'Shaytanat',
-                    viewers: 411,
-                    favourite: false,
-                    like: false,
-                },
-                {   
-                    id :3,
-                    name: 'Osmodagi bolalar',
-                    viewers: 711,
-                    favourite: true,
-                    like: false,
-                }
-          ],
+          muvies:[],
           term:'',
-          filter: 'all'
+          filter: 'all',
+          isLoading: false,
         };
     },
     methods:{
@@ -101,9 +96,34 @@ export default {
       },
       updateFiltereHandler(filter){
         this.filter = filter 
-      }
+      },
       
-    }
+      async fetchMuvies(){
+        this.isLoading = true;
+        try {
+          const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          const newArr = data.map(item => ({
+            id: item.id,
+            name: item.title,
+            like: false,
+            favourite: false,
+            viewers: item.id * 10, 
+          }))
+          this.muvies = newArr;
+          // console.log(newArr);
+          }
+        catch (error) {
+          alert(error.message);
+        }
+        finally{
+          this.isLoading = false;
+        }
+      },    
+    },
+    mounted() {
+      this.fetchMuvies()
+    },
+
 
 }
 </script>
