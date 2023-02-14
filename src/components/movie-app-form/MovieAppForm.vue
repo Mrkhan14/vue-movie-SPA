@@ -37,7 +37,7 @@ export default {
                 viewers: this.viewers,
                 favourite2: false,
                 link: false,
-                id: Date.now(),
+                // id: Date.now(),
             };
             this.$emit("creatMovie", newMavie);
             this.name = "",

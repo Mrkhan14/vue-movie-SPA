@@ -80,10 +80,14 @@ export default {
         };
     },
     methods:{
-      creatMovieQabul(itme){
-        // itme massivga push qilib qoyish 
-        this.muvies.push(itme)
-        console.log(itme);
+      async creatMovieQabul(itme){
+        try {
+          const response = await axios.post('https://jsonplaceholder.typicode.com/posts', itme)
+          // itme massivga push qilib qoyish 
+          this.muvies.push(response.data)
+        } catch (error) {
+          alert(error.message)
+        } 
       },
       onToggleHandler({id, prop}){
         // console.log(prop);
@@ -94,8 +98,15 @@ export default {
           return item
         })
       },
-      onRemoveHandler(id){
-        this.muvies = this.muvies.filter(c => c.id !== id)
+      async onRemoveHandler(id){
+        try {
+          const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+          console.log(response);
+          this.muvies = this.muvies.filter(c => c.id !== id)
+        } catch (error) {
+          alert(error.message)
+        }
+       
       },
       onSoecheHandler(arr, term){
         if (term.length == 0) {
@@ -121,7 +132,6 @@ export default {
         this.filter = filter 
       },
      
-      
       async fetchMuvies(){
         this.isLoading = true;
         try {
