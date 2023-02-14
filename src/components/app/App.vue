@@ -6,6 +6,7 @@
             :allMuviesCount="muvies.length"
             :FavouriteMuviesCount="muvies.filter(muvie => muvie.favourite).length"
           />
+
           <div class="search-panel">
               <SearchPanel :updateTermHandler="updateTermHandler"/>
               <AppFilter   :updateFiltereHandler="updateFiltereHandler" :filterName="filter"/>
@@ -14,15 +15,34 @@
           <card-my v-if="!muvies.length && !isLoading">
               <p class="text-center fs-3 text-danger">Kinolar hozircha yo'q</p>
           </card-my>
+
           <card-my v-else-if="isLoading">
             <loading ></loading>
           </card-my>
+
           <movie-list 
             v-else
             :muviesYubor="onFiltereHandler(onSoecheHandler(muvies, term), filter)" 
             @onToggle="onToggleHandler"
             @onRemove="onRemoveHandler"
           />
+
+          <card-my class="d-flex justify-content-center">
+            <nav aria-label="pagination">
+              <ul class="pagination pagination-lg">
+                <li 
+                  v-for="pageNumber in totalPages"
+                  :key="pageNumber"
+                  class="page-item" 
+                  @click="changePageHandler(pageNumber)"
+                  :class="{'active': pageNumber === page}">
+                  <span class="page-link">{{ pageNumber }}</span>
+                </li>
+              </ul>
+            </nav>
+          </card-my>
+          
+
           <movie-app-form  @creatMovie="creatMovieQabul"/>
         </div>
         <!-- <primary-button @click="fetchMuvies">click</primary-button> -->
@@ -54,6 +74,9 @@ export default {
           term:'',
           filter: 'all',
           isLoading: false,
+          limit: 10,
+          page:1,
+          totalPages: 0,
         };
     },
     methods:{
@@ -97,20 +120,28 @@ export default {
       updateFiltereHandler(filter){
         this.filter = filter 
       },
+     
       
       async fetchMuvies(){
         this.isLoading = true;
         try {
-          const {data} = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-          const newArr = data.map(item => ({
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+            params:{
+              _limit: this.limit,
+              _page: this.page,
+            }
+          });
+          const newArr = response.data.map(item => ({
             id: item.id,
             name: item.title,
             like: false,
             favourite: false,
             viewers: item.id * 10, 
           }))
+          // 100 : 10 = 10 agar qoldiq qolsa u ham bitta pages bo'ladi 101 : 10 = 11
+          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
           this.muvies = newArr;
-          // console.log(newArr);
+          console.log(this.totalPages);
           }
         catch (error) {
           alert(error.message);
@@ -118,11 +149,20 @@ export default {
         finally{
           this.isLoading = false;
         }
-      },    
+      },  
+      changePageHandler(page){
+        this.page = page       
+      },  
     },
     mounted() {
       this.fetchMuvies()
     },
+    // kuzatuchi bizni datalarmiz o'zgarsan  return ishdagi  shundan watch ichdagi funksiya ishga tushadi 
+    watch:{
+      page(){
+        this.fetchMuvies();
+      }
+    }
 
 
 }
