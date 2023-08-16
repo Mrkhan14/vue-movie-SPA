@@ -1,19 +1,12 @@
 <template>
     <div class="app font-monspace">
         <div class="content">
-            <AppInfo
-                :allMuviesCount="muvies.length"
-                :FavouriteMuviesCount="
-                    muvies.filter((muvie) => muvie.favourite).length
-                "
-            />
+            <AppInfo :allMuviesCount="muvies.length" :FavouriteMuviesCount="muvies.filter((muvie) => muvie.favourite).length
+                " />
 
             <div class="search-panel">
                 <SearchPanel :updateTermHandler="updateTermHandler" />
-                <AppFilter
-                    :updateFiltereHandler="updateFiltereHandler"
-                    :filterName="filter"
-                />
+                <AppFilter :updateFiltereHandler="updateFiltereHandler" :filterName="filter" />
             </div>
 
             <card-my v-if="!muvies.length && !isLoading">
@@ -26,25 +19,14 @@
                 <loading></loading>
             </card-my>
 
-            <movie-list
-                v-else
-                :muviesYubor="
-                    onFiltereHandler(onSoecheHandler(muvies, term), filter)
-                "
-                @onToggle="onToggleHandler"
-                @onRemove="onRemoveHandler"
-            />
+            <movie-list v-else :muviesYubor="onFiltereHandler(onSoecheHandler(muvies, term), filter)
+                " @onToggle="onToggleHandler" @onRemove="onRemoveHandler" />
 
             <card-my class="d-flex justify-content-center">
                 <nav aria-label="pagination">
                     <ul class="pagination pagination-lg">
-                        <li
-                            v-for="pageNumber in totalPages"
-                            :key="pageNumber"
-                            class="page-item"
-                            @click="changePageHandler(pageNumber)"
-                            :class="{ active: pageNumber === page }"
-                        >
+                        <li v-for="pageNumber in totalPages" :key="pageNumber" class="page-item"
+                            @click="changePageHandler(pageNumber)" :class="{ active: pageNumber === page }">
                             <span class="page-link">{{ pageNumber }}</span>
                         </li>
                     </ul>
@@ -197,12 +179,12 @@ export default {
     },
 };
 </script>
-
 <style>
 .app {
     height: 100vh;
     color: #000;
 }
+
 .content {
     width: 1000px;
     min-height: 700px;
@@ -210,6 +192,7 @@ export default {
     margin: 0px auto;
     padding: 5rem 0;
 }
+
 .search-panel {
     margin-top: 2rem;
     padding: 1.5rem;
